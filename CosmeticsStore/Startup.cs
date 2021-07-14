@@ -1,6 +1,7 @@
 namespace CosmeticsStore
 {
     using CosmeticsStore.Data;
+    using CosmeticsStore.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -41,6 +42,8 @@ namespace CosmeticsStore
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.PrepareDatabase();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,5 +66,6 @@ namespace CosmeticsStore
                     endpoints.MapRazorPages();
                 });
         }
+
     }
 }
