@@ -9,7 +9,7 @@
     {
         public const int ProductBrandMaxLength = 50;
 
-        public const int NameMaxLength = 30; 
+        public const int NameMaxLength = 80; 
         
         public const int ProductDescriptionMaxLength = 300;
 
