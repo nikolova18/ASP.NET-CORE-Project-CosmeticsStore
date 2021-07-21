@@ -1,7 +1,7 @@
 ﻿@model AllProductsQueryModel
 
 @{
-    ViewData["Title"] = "All products";
+    ViewBag.Title = "All products";
 }
 
 <form method="get">
@@ -37,6 +37,11 @@
     </div>
 </form>
 
+@if (!Model.Products.Any())
+{
+    <h2 class="text-center">No products found.</h2>
+}
+
 <div class="row">
     @foreach (var product in Model.Products)
     {
@@ -51,6 +56,8 @@
         </div>
     }
 </div>
+
+
 
 @{
     var previousPage = Model.CurrentPage - 1;

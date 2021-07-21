@@ -1,12 +1,14 @@
 ﻿namespace CosmeticsStore.Controllers
 {
-    using System;
     using System.Linq;
-    using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Authorization;
     using CosmeticsStore.Data;
-    using CosmeticsStore.Models.Products;
     using CosmeticsStore.Data.Models;
+    using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Models.Products;
+
 
     public class ProductsController : Controller
     {
@@ -70,15 +72,36 @@
             return View(query);
         }
 
-        public IActionResult Add()=>View(new AddProductFormModel 
+        [Authorize]
+        public IActionResult Add()
         {
-            Categories=this.GetProductCategories()
-        });
+            if (!this.UserIsDealer())
+            {
+                return RedirectToAction(nameof(DealersController.Become),"Dealers");
+            }
+
+            return View(new AddProductFormModel
+            {
+                Categories = this.GetProductCategories()
+            });
+        }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddProductFormModel product)
         {
-            if(!this.data.Categories.Any(c=>c.Id==product.CategoryId))
+            var dealerId = this.data
+                .Dealers
+                .Where(d => d.UserId == this.User.GetId())
+                .Select(d => d.Id)
+                .FirstOrDefault();
+
+            if (dealerId == 0)
+            {
+                return RedirectToAction(nameof(DealersController.Become), "Dealers");
+            }
+
+            if (!this.data.Categories.Any(c=>c.Id==product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
             }
@@ -98,7 +121,8 @@
                 ImageUrl = product.ImageUrl,
                 Quantity = product.Quantity,
                 Price = product.Price,
-                CategoryId=product.CategoryId
+                CategoryId = product.CategoryId,
+                DealerId = dealerId
             };
 
             this.data.Products.Add(productData);
@@ -106,6 +130,12 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        private bool UserIsDealer()
+            => this.data
+                .Dealers
+                .Any(d => d.UserId == this.User.GetId());
+
         private IEnumerable<ProductCategoryViewModel> GetProductCategories()
             => this.data
             .Categories
