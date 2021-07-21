@@ -1,22 +1,26 @@
 ﻿namespace CosmeticsStore.Data
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    public class DataConstants
+   public class DataConstants
     {
-        public const int ProductBrandMaxLength = 50;
+        public class Product
+        {
+            public const int BrandMaxLength = 50;
+            public const int NameMaxLength = 80;
+            public const int DescriptionMaxLength = 300;
+            public const int MinLength = 2;
+            public const int QuantityMin = 1;
+            public const int QuantityMax = 9999;
+        }
 
-        public const int NameMaxLength = 80; 
-        
-        public const int ProductDescriptionMaxLength = 300;
+        public class Category
+        {
+            public const int NameMaxLength = 50;
+        }
 
-        public const int TextMinLength = 2;
-
-
-        public const int ProductQuantityMin = 1;
-        public const int ProductQuantityMax = 9999;        
+        public class Dealer
+        {
+            public const int NameMaxLenght = 40;
+            public const int PhoneMaxLength = 20;
+        }
     }
 }

@@ -1,31 +1,31 @@
 ﻿namespace CosmeticsStore.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using static DataConstants;
+    using static DataConstants.Product;
 
     public class Product
     {
         public int Id { get; init; }
 
         [Required]
-        [StringLength(ProductBrandMaxLength, MinimumLength = TextMinLength)]
+        [StringLength(BrandMaxLength, MinimumLength = MinLength)]
         public string Brand { get; init; }
 
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = TextMinLength)]
+        [StringLength(NameMaxLength, MinimumLength = MinLength)]
         public string Name { get; init; }
 
         [Required]
         [StringLength(
-            ProductDescriptionMaxLength,
-            MinimumLength = TextMinLength)]
+            DescriptionMaxLength,
+            MinimumLength = MinLength)]
         public string Description { get; init; }
 
         [Required]
         public string ImageUrl { get; init; }
 
         [Required]
-        [Range(ProductQuantityMin, ProductQuantityMax)]
+        [Range(QuantityMin, QuantityMax)]
         public int Quantity { get; init; }
 
         [Required]
@@ -36,7 +36,9 @@
 
         public Category Category { get; init; }
 
+        public int DealerId { get; init; }
 
+        public Dealer Dealer { get; init; }
 
     }
 }

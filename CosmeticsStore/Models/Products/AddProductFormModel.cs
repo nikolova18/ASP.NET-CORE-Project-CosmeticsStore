@@ -2,22 +2,22 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static Data.DataConstants;
+    using static Data.DataConstants.Product;
 
     public class AddProductFormModel
     {
         [Required]
-        [StringLength(ProductBrandMaxLength, MinimumLength = TextMinLength)]
+        [StringLength(BrandMaxLength, MinimumLength = MinLength)]
         public string Brand { get; init; }
 
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = TextMinLength)]
+        [StringLength(NameMaxLength, MinimumLength = MinLength)]
         public string Name { get; init; }
 
         [Required]
         [StringLength(
-            ProductDescriptionMaxLength,
-            MinimumLength = TextMinLength,
+            DescriptionMaxLength,
+            MinimumLength = MinLength,
             ErrorMessage = "The field Description must minimum {2} chars long.")]
         public string Description { get; init; }
 
@@ -28,7 +28,7 @@
 
         [Required]
         [Display(Name = "Quantity in mL")]
-        [Range(ProductQuantityMin,ProductQuantityMax)]
+        [Range(QuantityMin,QuantityMax)]
         public int Quantity { get; init; }
 
         [Required]
