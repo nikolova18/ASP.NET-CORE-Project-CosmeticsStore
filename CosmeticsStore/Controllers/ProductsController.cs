@@ -7,67 +7,35 @@
     using CosmeticsStore.Data;
     using CosmeticsStore.Data.Models;
     using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Models;
     using CosmeticsStore.Models.Products;
-
+    using CosmeticsStore.Services.Product;
 
     public class ProductsController : Controller
     {
+        private readonly IProductService products;
         private readonly ApplicationDbContext data;
 
-        public ProductsController(ApplicationDbContext data)
-            => this.data = data;
+        public ProductsController(ApplicationDbContext data, IProductService products)
+        {
+            this.products = products;
+            this.data = data;
+        }
 
         public IActionResult All([FromQuery]AllProductsQueryModel query)
         {
-            var productsQuery = this.data.Products.AsQueryable();
+            var queryResult = this.products.All(
+                query.Brand,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllProductsQueryModel.ProductPerPage);
 
-            if (!string.IsNullOrWhiteSpace(query.Brand))
-            {
-                productsQuery = productsQuery.Where(p => p.Brand == query.Brand);
-            }
+            var productBrands = this.products.AllProductBrands();
 
-
-            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            {
-                productsQuery = productsQuery.Where(p =>
-                      (p.Brand+" "+p.Name).ToLower().Contains(query.SearchTerm.ToLower()) || 
-                      p.Description.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
-
-            productsQuery = query.Sorting switch
-            {
-                ProductSorting.Price => productsQuery.OrderBy(p => p.Price),
-                ProductSorting.Quantity => productsQuery.OrderBy(p => p.Quantity),
-                ProductSorting.BrandAndName => productsQuery.OrderBy(p => p.Brand).ThenBy(p=>p.Name),
-                ProductSorting.DateCreated or _ => productsQuery.OrderByDescending(p => p.Id)
-            };
-
-            var totalProducts = productsQuery.Count();
-
-            var products =productsQuery
-                .Skip((query.CurrentPage-1)*AllProductsQueryModel.ProductPerPage)
-                .Take(AllProductsQueryModel.ProductPerPage)
-                .Select(p => new ProductListingViewModel
-                {
-                    Id = p.Id,
-                    Brand = p.Brand,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                    Quantity = p.Quantity,
-                    Price = p.Price,
-                    Category = p.Category.Name
-                })
-                .ToList();
-
-            var productBrands = this.data
-                .Products
-                .Select(p => p.Brand)
-                .Distinct()
-                .ToList();
-
+            query.TotalProducts = queryResult.TotalProducts;
             query.Brands = productBrands;
-            query.Products = products;
-            query.TotalProducts = totalProducts;
+            query.Products = queryResult.Products ;
 
             return View(query);
         }

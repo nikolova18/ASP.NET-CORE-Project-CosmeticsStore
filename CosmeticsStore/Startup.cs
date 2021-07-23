@@ -2,6 +2,8 @@ namespace CosmeticsStore
 {
     using CosmeticsStore.Data;
     using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Services.Product;
+    using CosmeticsStore.Services.Statistics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -36,8 +38,10 @@ namespace CosmeticsStore
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services
-                .AddControllersWithViews();
+            services.AddControllersWithViews();
+
+            services.AddTransient<IStatisticsService, StatisticsService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

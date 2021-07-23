@@ -1,11 +1,6 @@
-﻿namespace CosmeticsStore.Models.Products
+﻿namespace CosmeticsStore.Services.Product
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    public class ProductListingViewModel
+    public class ProductServiceModel
     {
         public int Id { get; init; }
 
@@ -21,4 +16,5 @@
 
         public string Category { get; init; }
     }
+
 }

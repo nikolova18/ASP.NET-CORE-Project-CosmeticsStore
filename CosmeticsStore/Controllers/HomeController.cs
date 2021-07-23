@@ -5,19 +5,24 @@
     using CosmeticsStore.Data;
     using CosmeticsStore.Models;
     using CosmeticsStore.Models.Home;
+    using CosmeticsStore.Services.Statistics;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
+        private readonly IStatisticsService statistics;
         private readonly ApplicationDbContext data;
 
-        public HomeController(ApplicationDbContext data)
-            => this.data = data;
+        public HomeController(
+            IStatisticsService statistics,
+            ApplicationDbContext data)
+        {
+            this.statistics = statistics;
+            this.data = data;
+        }
 
         public IActionResult Index() 
         {
-            var totalProducts = this.data.Products.Count();
-
             var products = this.data
                 .Products
                 .OrderByDescending(p => p.Id)
@@ -33,11 +38,15 @@
                 .Take(3)
                 .ToList();
 
+            var totalStatistics = this.statistics.Total();
+
+
             return View(new IndexViewModel
             {
-                TotalProducts=totalProducts,
-                Products=products
-            });
+                TotalProducts = totalStatistics.TotalProducts,
+                TotalUsers = totalStatistics.TotalUsers,
+                Products = products
+            }) ;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

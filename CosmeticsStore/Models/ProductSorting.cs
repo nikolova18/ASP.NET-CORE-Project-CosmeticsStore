@@ -1,5 +1,4 @@
-﻿
-namespace CosmeticsStore.Models.Products
+﻿namespace CosmeticsStore.Models
 {
     public enum ProductSorting
     {

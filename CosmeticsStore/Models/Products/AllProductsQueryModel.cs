@@ -1,6 +1,6 @@
-﻿
-namespace CosmeticsStore.Models.Products
+﻿namespace CosmeticsStore.Models.Products
 {
+    using CosmeticsStore.Services.Product;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -8,18 +8,18 @@ namespace CosmeticsStore.Models.Products
     {
         public const int ProductPerPage = 3;
         public string Brand { get; init; }
-        public IEnumerable<string> Brands { get; set; }
 
         [Display(Name ="Search by text:")]
         public string SearchTerm { get; init; }
 
         public int CurrentPage { get; init; } = 1;
 
-        public int TotalProducts { get; set; }
-
         public ProductSorting Sorting { get; init; }
 
-        public IEnumerable<ProductListingViewModel> Products { get; set; }
+        public int TotalProducts { get; set; }
 
+        public IEnumerable<string> Brands { get; set; }
+
+        public IEnumerable<ProductServiceModel> Products { get; set; }
     }
 }

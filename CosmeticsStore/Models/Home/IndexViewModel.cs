@@ -1,5 +1,4 @@
-﻿
-namespace CosmeticsStore.Models.Home
+﻿namespace CosmeticsStore.Models.Home
 {
     using System.Collections.Generic;
 
@@ -9,6 +8,5 @@ namespace CosmeticsStore.Models.Home
         public int TotalUsers { get; init; }
         public int TotalPurchase { get; init; }
         public List<ProductIndexViewModel> Products { get; init; }
-
     }
 }
