@@ -9,30 +9,30 @@
 
         [Required]
         [StringLength(BrandMaxLength, MinimumLength = MinLength)]
-        public string Brand { get; init; }
+        public string Brand { get; set; }
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = MinLength)]
-        public string Name { get; init; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(
             DescriptionMaxLength,
             MinimumLength = MinLength)]
-        public string Description { get; init; }
+        public string Description { get; set; }
 
         [Required]
-        public string ImageUrl { get; init; }
+        public string ImageUrl { get; set; }
 
         [Required]
         [Range(QuantityMin, QuantityMax)]
-        public int Quantity { get; init; }
+        public int Quantity { get; set; }
 
         [Required]
         [Range(typeof(decimal), "0", "9999.99")]
-        public decimal Price { get; init; }
+        public decimal Price { get; set; }
 
-        public int CategoryId { get; init; }
+        public int CategoryId { get; set; }
 
         public Category Category { get; init; }
 

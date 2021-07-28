@@ -1,25 +1,23 @@
 ﻿namespace CosmeticsStore.Controllers
 {
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using Microsoft.AspNetCore.Authorization;
-    using CosmeticsStore.Data;
-    using CosmeticsStore.Data.Models;
     using CosmeticsStore.Infrastructure;
-    using CosmeticsStore.Models;
     using CosmeticsStore.Models.Products;
+    using CosmeticsStore.Services.Dealer;
     using CosmeticsStore.Services.Product;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : Controller
     {
         private readonly IProductService products;
-        private readonly ApplicationDbContext data;
+        private readonly IDealerService dealer;
 
-        public ProductsController(ApplicationDbContext data, IProductService products)
+        public ProductsController( 
+            IProductService products, 
+            IDealerService dealer)
         {
             this.products = products;
-            this.data = data;
+            this.dealer = dealer; 
         }
 
         public IActionResult All([FromQuery]AllProductsQueryModel query)
@@ -31,7 +29,7 @@
                 query.CurrentPage,
                 AllProductsQueryModel.ProductPerPage);
 
-            var productBrands = this.products.AllProductBrands();
+            var productBrands = this.products.AllBrands();
 
             query.TotalProducts = queryResult.TotalProducts;
             query.Brands = productBrands;
@@ -41,77 +39,133 @@
         }
 
         [Authorize]
+        public IActionResult Mine()
+        {
+            var myProducts = this.products.ByUser(this.User.Id());
+
+            return View(myProducts);
+        }
+
+        [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsDealer())
+            if (!this.dealer.IsDealer(this.User.Id()))
             {
                 return RedirectToAction(nameof(DealersController.Become),"Dealers");
             }
 
-            return View(new AddProductFormModel
+            return View(new ProductFormModel
             {
-                Categories = this.GetProductCategories()
+                Categories = this.products.AllCategories()
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddProductFormModel product)
+        public IActionResult Add(ProductFormModel product)
         {
-            var dealerId = this.data
-                .Dealers
-                .Where(d => d.UserId == this.User.GetId())
-                .Select(d => d.Id)
-                .FirstOrDefault();
+            var dealerId = this.dealer.IdByUser(this.User.Id());
 
             if (dealerId == 0)
             {
                 return RedirectToAction(nameof(DealersController.Become), "Dealers");
             }
 
-            if (!this.data.Categories.Any(c=>c.Id==product.CategoryId))
+            if (!this.products.CategoryExists(product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
             }
 
             if(!ModelState.IsValid)
             {
-                product.Categories = this.GetProductCategories();
+                product.Categories = this.products.AllCategories();
 
                 return View(product);
             }
 
-            var productData = new Product
-            {
-                Brand = product.Brand,
-                Name = product.Name,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl,
-                Quantity = product.Quantity,
-                Price = product.Price,
-                CategoryId = product.CategoryId,
-                DealerId = dealerId
-            };
-
-            this.data.Products.Add(productData);
-            this.data.SaveChanges();
+            this.products.Create(
+                product.Brand,
+                product.Name,
+                product.Description,
+                product.ImageUrl,
+                product.Quantity,
+                product.Price,
+                product.CategoryId,
+                dealerId);
 
             return RedirectToAction(nameof(All));
         }
 
-        private bool UserIsDealer()
-            => this.data
-                .Dealers
-                .Any(d => d.UserId == this.User.GetId());
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.Id();
 
-        private IEnumerable<ProductCategoryViewModel> GetProductCategories()
-            => this.data
-            .Categories
-            .Select(c => new ProductCategoryViewModel
+            if (!this.dealer.IsDealer(userId))
             {
-                Id = c.Id,
-                Name = c.Name
-            })
-            .ToList();
+                return RedirectToAction(nameof(DealersController.Become), "Dealers");
+            }
+
+            var product = this.products.Details(id);
+
+            if (product.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(new ProductFormModel
+            {
+                Brand=product.Brand,
+                Name=product.Name,
+                Description=product.Description,
+                ImageUrl=product.ImageUrl,
+                Quantity=product.Quantity,
+                Price=product.Price,
+                CategoryId=product.CategoryId,
+                Categories=this.products.AllCategories()
+            });
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id,ProductFormModel product)
+        {
+            var dealerId = this.dealer.IdByUser(this.User.Id());
+
+            if (dealerId == 0)
+            {
+                return RedirectToAction(nameof(DealersController.Become), "Dealers");
+            }
+
+            if (!this.products.CategoryExists(product.CategoryId))
+            {
+                this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                product.Categories = this.products.AllCategories();
+
+                return View(product);
+            }
+
+            if (!this.products.IsByDealer(id, dealerId))
+            {
+                return BadRequest();
+            }
+
+            this.products.Edit(
+               id,
+               product.Brand,
+               product.Name,
+               product.Description,
+               product.ImageUrl,
+               product.Quantity,
+               product.Price,
+               product.CategoryId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

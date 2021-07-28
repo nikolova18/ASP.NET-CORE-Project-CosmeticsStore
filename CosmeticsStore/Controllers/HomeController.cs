@@ -1,12 +1,10 @@
 ﻿namespace CosmeticsStore.Controllers
 {
-    using System.Diagnostics;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
     using CosmeticsStore.Data;
-    using CosmeticsStore.Models;
     using CosmeticsStore.Models.Home;
     using CosmeticsStore.Services.Statistics;
-    using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
@@ -49,7 +47,7 @@
             }) ;
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()=>View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Error() => View();
+
     }
 }

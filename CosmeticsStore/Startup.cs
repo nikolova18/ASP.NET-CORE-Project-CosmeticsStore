@@ -2,11 +2,13 @@ namespace CosmeticsStore
 {
     using CosmeticsStore.Data;
     using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Services.Dealer;
     using CosmeticsStore.Services.Product;
     using CosmeticsStore.Services.Statistics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -38,10 +40,16 @@ namespace CosmeticsStore
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
+
+            services.AddTransient<IProductService, ProductService>(); 
+            services.AddTransient<IDealerService, DealerService>();
             services.AddTransient<IStatisticsService, StatisticsService>();
-            services.AddTransient<IProductService, ProductService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
