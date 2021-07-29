@@ -24,21 +24,21 @@
 
         [Url]
         [Required]
-        [Display(Name="Image URL")]
+        [Display(Name="Адрес на изображението")]
         public string ImageUrl { get; init; }
 
         [Required]
-        [Display(Name = "Quantity in mL")]
+        [Display(Name = "Количество в mL")]
         [Range(QuantityMin,QuantityMax)]
         public int Quantity { get; init; }
 
         [Required]
-        [Display(Name = "Price in BGN")]
+        [Display(Name = "Цена в BGN")]
         [Range(typeof(decimal), "0", "9999.99",
             ErrorMessage = "The price must be greater than 0.")]
         public decimal Price { get; init; }
 
-        [Display(Name = "Category")]
+        [Display(Name = "Категория")]
         public int CategoryId { get; init; }
 
         public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }

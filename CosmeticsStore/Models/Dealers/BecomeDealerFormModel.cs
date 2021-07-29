@@ -11,7 +11,7 @@
 
         [Required]
         [StringLength(PhoneMaxLength, MinimumLength = PhoneMinLength)]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Телефонен номер")]
         public string PhoneNumber { get; set; }
     }
 }

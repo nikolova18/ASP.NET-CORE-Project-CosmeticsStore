@@ -1,7 +1,7 @@
 ﻿@model BecomeDealerFormModel
 
 @{
-    ViewBag.Title= "Become dealer";
+    ViewBag.Title = "Стани дистрибутор";
 }
 
 <div class="row">
@@ -9,7 +9,7 @@
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
         <form method="post">
             <div class="form-group">
-                <label asp-for="Name"></label>
+                <label asp-for="Name">Име</label>
                 <input asp-for="Name" class="form-control" placeholder="Vivel cosmetics, Impulse EOOD...">
                 <span asp-validation-for="Name" class="small text-danger"></span>
             </div>
@@ -23,3 +23,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

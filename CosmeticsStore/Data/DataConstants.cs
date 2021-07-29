@@ -24,5 +24,12 @@
             public const int PhoneMinLength = 6;
             public const int PhoneMaxLength = 20;
         }
+        public class User
+        {
+            public const int FullNameMinLength = 5;
+            public const int FullNameMaxLength = 45;
+            public const int PasswordMinLength = 6;
+            public const int PasswordMaxLength = 100;
+        }
     }
 }

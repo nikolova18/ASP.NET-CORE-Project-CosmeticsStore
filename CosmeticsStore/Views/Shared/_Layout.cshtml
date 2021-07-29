@@ -18,11 +18,14 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
-                        </li>
+                        @if (!User.IsAdmin())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Добави продукт</a>
+                            </li>
+                         }
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All Products</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Всички продукти</a>
                         </li>
                     </ul>
 

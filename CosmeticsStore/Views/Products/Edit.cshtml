@@ -1,5 +1,9 @@
 ﻿@model ProductFormModel
 
-@{ ViewBag.Title = "Edit Product"; }
+@{ ViewBag.Title = "Редактирай продукт"; }
 
 <partial name="_ProductFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

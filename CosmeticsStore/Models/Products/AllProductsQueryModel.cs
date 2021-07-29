@@ -9,7 +9,7 @@
         public const int ProductPerPage = 3;
         public string Brand { get; init; }
 
-        [Display(Name ="Search by text:")]
+        [Display(Name ="Търси по текст:")]
         public string SearchTerm { get; init; }
 
         public int CurrentPage { get; init; } = 1;

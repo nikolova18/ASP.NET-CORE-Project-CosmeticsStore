@@ -1,6 +1,7 @@
 namespace CosmeticsStore
 {
     using CosmeticsStore.Data;
+    using CosmeticsStore.Data.Models;
     using CosmeticsStore.Infrastructure;
     using CosmeticsStore.Services.Dealer;
     using CosmeticsStore.Services.Product;
@@ -31,13 +32,14 @@ namespace CosmeticsStore
                 .AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options => 
+                .AddDefaultIdentity<User>(options => 
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews(options =>
