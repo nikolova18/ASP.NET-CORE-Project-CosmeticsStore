@@ -1,9 +1,6 @@
-﻿namespace CosmeticsStore.Services.Product
+﻿namespace CosmeticsStore.Services.Product.Models
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class ProductQueryServiceModel
     {

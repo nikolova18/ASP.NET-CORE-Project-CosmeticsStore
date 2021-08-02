@@ -1,17 +1,24 @@
 ﻿namespace CosmeticsStore.Services.Product
 {
     using System.Linq;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using CosmeticsStore.Data;
     using CosmeticsStore.Data.Models;
     using CosmeticsStore.Models;
     using System.Collections.Generic;
+    using CosmeticsStore.Services.Product.Models;
 
     public class ProductService : IProductService
     {
         private readonly ApplicationDbContext data;
+        private readonly IConfigurationProvider mapper;
 
-        public ProductService(ApplicationDbContext data)
-            => this.data = data;
+        public ProductService(ApplicationDbContext data,IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper.ConfigurationProvider;
+        }
 
         public ProductQueryServiceModel All(
             string brand,
@@ -62,21 +69,7 @@
             => this.data
             .Products
             .Where(p => p.Id == id)
-            .Select(p => new ProductDetailsServiceModel
-            {
-                Id=p.Id,
-                Brand=p.Brand,
-                Name=p.Name,
-                ImageUrl = p.ImageUrl,
-                Quantity = p.Quantity,
-                Price = p.Price,
-                CategoryName = p.Category.Name,
-                Description = p.Description,
-                CategoryId=p.CategoryId,
-                DealerId=p.DealerId,
-                DealerName=p.Dealer.Name,
-                UserId=p.Dealer.UserId
-            })
+            .ProjectTo<ProductDetailsServiceModel>(this.mapper)
             .FirstOrDefault();
 
         public int Create(string brand, string name, string description, string imageUrl, int quantity, decimal price, int categoryId, int dealerId)

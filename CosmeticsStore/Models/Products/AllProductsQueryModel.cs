@@ -1,6 +1,6 @@
 ﻿namespace CosmeticsStore.Models.Products
 {
-    using CosmeticsStore.Services.Product;
+    using CosmeticsStore.Services.Product.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 

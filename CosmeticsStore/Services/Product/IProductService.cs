@@ -2,6 +2,7 @@
 {
     using CosmeticsStore.Models;
     using System.Collections.Generic;
+    using CosmeticsStore.Services.Product.Models;
 
     public interface IProductService
     {

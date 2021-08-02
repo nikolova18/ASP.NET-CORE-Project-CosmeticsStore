@@ -1,5 +1,6 @@
 ﻿namespace CosmeticsStore.Controllers
 {
+    using AutoMapper;
     using CosmeticsStore.Infrastructure;
     using CosmeticsStore.Models.Products;
     using CosmeticsStore.Services.Dealer;
@@ -11,13 +12,16 @@
     {
         private readonly IProductService products;
         private readonly IDealerService dealer;
+        private readonly IMapper mapper;
 
         public ProductsController( 
             IProductService products, 
-            IDealerService dealer)
+            IDealerService dealer,
+            IMapper mapper)
         {
             this.products = products;
-            this.dealer = dealer; 
+            this.dealer = dealer;
+            this.mapper = mapper;
         }
 
         public IActionResult All([FromQuery]AllProductsQueryModel query)
@@ -113,17 +117,11 @@
                 return Unauthorized();
             }
 
-            return View(new ProductFormModel
-            {
-                Brand=product.Brand,
-                Name=product.Name,
-                Description=product.Description,
-                ImageUrl=product.ImageUrl,
-                Quantity=product.Quantity,
-                Price=product.Price,
-                CategoryId=product.CategoryId,
-                Categories=this.products.AllCategories()
-            });
+            var productForm = this.mapper.Map<ProductFormModel>(product);
+
+            productForm.Categories = this.products.AllCategories();
+
+            return View(productForm);
 
         }
 

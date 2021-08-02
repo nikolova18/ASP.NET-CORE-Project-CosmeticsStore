@@ -2,6 +2,7 @@
 {
     using CosmeticsStore.Models.Api.Products;
     using CosmeticsStore.Services.Product;
+    using CosmeticsStore.Services.Product.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]

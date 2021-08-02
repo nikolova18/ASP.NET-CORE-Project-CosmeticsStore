@@ -1,6 +1,8 @@
 ﻿namespace CosmeticsStore.Controllers
 {
     using System.Linq;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Mvc;
     using CosmeticsStore.Data;
     using CosmeticsStore.Models.Home;
@@ -10,13 +12,16 @@
     {
         private readonly IStatisticsService statistics;
         private readonly ApplicationDbContext data;
+        private readonly IConfigurationProvider mapper;
 
         public HomeController(
             IStatisticsService statistics,
-            ApplicationDbContext data)
+            ApplicationDbContext data,
+            IMapper mapper)
         {
             this.statistics = statistics;
             this.data = data;
+            this.mapper = mapper.ConfigurationProvider;
         }
 
         public IActionResult Index() 
@@ -24,15 +29,7 @@
             var products = this.data
                 .Products
                 .OrderByDescending(p => p.Id)
-                .Select(p => new ProductIndexViewModel
-                {
-                    Id = p.Id,
-                    Brand = p.Brand,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                    Quantity = p.Quantity,
-                    Price = p.Price
-                })
+                .ProjectTo<ProductIndexViewModel>(this.mapper)
                 .Take(3)
                 .ToList();
 

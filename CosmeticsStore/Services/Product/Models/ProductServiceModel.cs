@@ -1,4 +1,4 @@
-﻿namespace CosmeticsStore.Services.Product
+﻿namespace CosmeticsStore.Services.Product.Models
 {
     public class ProductServiceModel
     {
