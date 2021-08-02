@@ -47,11 +47,9 @@ namespace CosmeticsStore
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
             });
 
-
             services.AddTransient<IProductService, ProductService>(); 
             services.AddTransient<IDealerService, DealerService>();
             services.AddTransient<IStatisticsService, StatisticsService>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -76,10 +74,13 @@ namespace CosmeticsStore
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
+                    endpoints.MapControllerRoute(
+                        name: "Areas",
+                        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
                 });
         }
-
     }
 }

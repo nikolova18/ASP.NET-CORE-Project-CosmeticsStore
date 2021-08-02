@@ -10,7 +10,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
-    using static WebConstants;
+    using static CosmeticsStore.Areas.Admin.AdminConstants;
 
     public static class ApplicationBuilderExtensions
     {
