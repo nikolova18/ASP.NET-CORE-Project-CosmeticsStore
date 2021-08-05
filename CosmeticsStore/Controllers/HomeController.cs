@@ -7,30 +7,26 @@
     using CosmeticsStore.Data;
     using CosmeticsStore.Models.Home;
     using CosmeticsStore.Services.Statistics;
+    using CosmeticsStore.Services.Product;
 
     public class HomeController : Controller
     {
+        private readonly IProductService products;
         private readonly IStatisticsService statistics;
-        private readonly ApplicationDbContext data;
-        private readonly IConfigurationProvider mapper;
+
 
         public HomeController(
-            IStatisticsService statistics,
-            ApplicationDbContext data,
-            IMapper mapper)
+            IProductService products,
+            IStatisticsService statistics)
         {
             this.statistics = statistics;
-            this.data = data;
-            this.mapper = mapper.ConfigurationProvider;
+            this.products = products;
         }
 
         public IActionResult Index() 
         {
-            var products = this.data
-                .Products
-                .OrderByDescending(p => p.Id)
-                .ProjectTo<ProductIndexViewModel>(this.mapper)
-                .Take(3)
+            var latestproducts = this.products
+                .Latest()
                 .ToList();
 
             var totalStatistics = this.statistics.Total();
@@ -40,7 +36,7 @@
             {
                 TotalProducts = totalStatistics.TotalProducts,
                 TotalUsers = totalStatistics.TotalUsers,
-                Products = products
+                Products = latestproducts
             }) ;
         }
 

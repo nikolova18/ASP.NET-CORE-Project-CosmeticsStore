@@ -13,6 +13,8 @@
             int currentPage,
             int productsPerPage);
 
+        IEnumerable<LatestProductServiceModel> Latest();
+
         ProductDetailsServiceModel Details(int id);
 
         int Create(

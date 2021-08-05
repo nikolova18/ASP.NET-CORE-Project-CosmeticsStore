@@ -2,7 +2,6 @@
 {
     using AutoMapper;
     using CosmeticsStore.Data.Models;
-    using CosmeticsStore.Models.Home;
     using CosmeticsStore.Models.Products;
     using CosmeticsStore.Services.Product.Models;
 
@@ -10,7 +9,7 @@
     {
         public MappingProfile()
         {
-            this.CreateMap<Product, ProductIndexViewModel>();
+            this.CreateMap<Product, LatestProductServiceModel>();
             this.CreateMap<ProductDetailsServiceModel, ProductFormModel>();
 
             this.CreateMap<Product, ProductDetailsServiceModel>()

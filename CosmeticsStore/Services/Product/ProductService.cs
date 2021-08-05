@@ -64,6 +64,13 @@
                 Products = products
             };
         }
+        public IEnumerable<LatestProductServiceModel> Latest()
+        => this.data
+                .Products
+                .OrderByDescending(c => c.Id)
+                .ProjectTo<LatestProductServiceModel>(this.mapper)
+                .Take(3)
+                .ToList();
 
         public ProductDetailsServiceModel Details(int id)
             => this.data
@@ -160,7 +167,5 @@
                     CategoryName = p.Category.Name
                 })
                 .ToList();
-
-
     }
 }
