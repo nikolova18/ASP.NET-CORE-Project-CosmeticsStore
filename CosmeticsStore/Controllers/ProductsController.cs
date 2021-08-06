@@ -11,16 +11,16 @@
     public class ProductsController : Controller
     {
         private readonly IProductService products;
-        private readonly IDealerService dealer;
+        private readonly IDealerService dealers;
         private readonly IMapper mapper;
 
         public ProductsController( 
             IProductService products, 
-            IDealerService dealer,
+            IDealerService dealers,
             IMapper mapper)
         {
             this.products = products;
-            this.dealer = dealer;
+            this.dealers = dealers;
             this.mapper = mapper;
         }
 
@@ -53,7 +53,7 @@
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.dealer.IsDealer(this.User.Id()))
+            if (!this.dealers.IsDealer(this.User.Id()))
             {
                 return RedirectToAction(nameof(DealersController.Become),"Dealers");
             }
@@ -68,7 +68,7 @@
         [Authorize]
         public IActionResult Add(ProductFormModel product)
         {
-            var dealerId = this.dealer.IdByUser(this.User.Id());
+            var dealerId = this.dealers.IdByUser(this.User.Id());
 
             if (dealerId == 0)
             {
@@ -105,7 +105,7 @@
         {
             var userId = this.User.Id();
 
-            if (!this.dealer.IsDealer(userId) && !User.IsAdmin())
+            if (!this.dealers.IsDealer(userId) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(DealersController.Become), "Dealers");
             }
@@ -129,7 +129,7 @@
         [Authorize]
         public IActionResult Edit(int id,ProductFormModel product)
         {
-            var dealerId = this.dealer.IdByUser(this.User.Id());
+            var dealerId = this.dealers.IdByUser(this.User.Id());
 
             if (dealerId == 0 && !User.IsAdmin())
             {

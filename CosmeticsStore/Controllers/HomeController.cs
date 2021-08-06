@@ -1,46 +1,47 @@
 ﻿namespace CosmeticsStore.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.AspNetCore.Mvc;
-    using CosmeticsStore.Data;
-    using CosmeticsStore.Models.Home;
-    using CosmeticsStore.Services.Statistics;
     using CosmeticsStore.Services.Product;
+    using CosmeticsStore.Services.Product.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     public class HomeController : Controller
     {
         private readonly IProductService products;
-        private readonly IStatisticsService statistics;
-
+        private readonly IMemoryCache cache;
 
         public HomeController(
             IProductService products,
-            IStatisticsService statistics)
+            IMemoryCache cache)
         {
-            this.statistics = statistics;
             this.products = products;
+            this.cache = cache;
         }
 
         public IActionResult Index() 
         {
-            var latestproducts = this.products
-                .Latest()
-                .ToList();
+            const string latestProductsCacheKey = "LatestProductsCacheKey";
 
-            var totalStatistics = this.statistics.Total();
+            var latestProducts = this.cache.Get<List<LatestProductServiceModel>>(latestProductsCacheKey);
 
-
-            return View(new IndexViewModel
+            if (latestProducts == null)
             {
-                TotalProducts = totalStatistics.TotalProducts,
-                TotalUsers = totalStatistics.TotalUsers,
-                Products = latestproducts
-            }) ;
+                latestProducts = this.products
+                  .Latest()
+                  .ToList();
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
+
+                this.cache.Set(latestProductsCacheKey, latestProducts, cacheOptions);
+            }
+
+            return View(latestProducts);
         }
 
         public IActionResult Error() => View();
-
     }
 }

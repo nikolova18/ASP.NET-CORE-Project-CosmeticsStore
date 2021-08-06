@@ -44,6 +44,8 @@ namespace CosmeticsStore
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddMemoryCache();
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();

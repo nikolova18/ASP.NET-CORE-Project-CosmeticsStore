@@ -2,7 +2,6 @@
 {
     using CosmeticsStore.Controllers;
     using CosmeticsStore.Data.Models;
-    using CosmeticsStore.Models.Home;
     using CosmeticsStore.Services.Product;
     using CosmeticsStore.Services.Statistics;
     using CosmeticsStore.Test.Mocks;
