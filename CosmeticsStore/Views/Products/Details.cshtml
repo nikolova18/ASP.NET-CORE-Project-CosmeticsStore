@@ -1,0 +1,25 @@
+﻿@model ProductDetailsServiceModel
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card  bg-danger" style="width: 30rem;">
+            <img class="card-img-top" src="@Model.ImageUrl" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">"@Model.Brand" @Model.Name</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card bg-danger"  style="width: 30rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><p class="card-text">@Model.Description</p></li>
+                <li class="list-group-item">Количество - @Model.Quantity ml</li>
+                <li class="list-group-item">Категория - @Model.CategoryName</li>
+                <li class="list-group-item">Дистрибутор - @Model.DealerName</li>
+                <li class="list-group-item">Цена - @Model.Price лв</li>
+            </ul>
+        </div>
+    </div>
+</div>
+  

@@ -5,9 +5,10 @@
     using Microsoft.AspNetCore.Authorization;
     using CosmeticsStore.Data;
     using CosmeticsStore.Data.Models;
-    using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Infrastructure.Extensions;
     using CosmeticsStore.Models.Dealers;
 
+    using static WebConstants;
 
     public class DealersController : Controller
     {
@@ -49,6 +50,8 @@
 
             this.data.Dealers.Add(dealerData);
             this.data.SaveChanges();
+
+            TempData[GlobalMessageKey] = "Thank you for becomming a dealer!";
 
             return RedirectToAction("All", "Products");
         }

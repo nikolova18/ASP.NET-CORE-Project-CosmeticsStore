@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ProductServiceModel>
+
+@{
+    ViewBag.Title = "Управление на продукти";
+}
+
+<h1>Чакащи продукти</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Марка</th>
+            <th scope="col">Име</th>
+            <th scope="col">Снимка</th>
+            <th scope="col">Количество (ml)</th>
+            <th scope="col">Цена (лв)</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Одобрен</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+        <tr>
+            <td scope="col">@product.Id</td>
+            <td scope="col">@product.Brand</td>
+            <td scope="col">@product.Name</td>
+            <td><img src="@product.ImageUrl" class="img-fluid"></td>
+            <td scope="col">@product.Quantity</td>
+            <td scope="col">@product.Price</td>
+            <td scope="col">@product.CategoryName</td>
+            <td scope="col">@(product.IsPublic ? "Yes" : "No")</td>
+            <td scope="col">
+                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()" class="btn btn-primary float-right ml-3">Детайли</a>
+                <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning float-right ml-3">Редакция</a>
+                <a asp-area="Admin" asp-controller="Products" asp-action="ChangeVisibility" asp-route-id="@product.Id" class="btn btn-info float-right ml-3">@(product.IsPublic ? "Скрий" : "Одобри")</a>
+                <a asp-area="" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger float-right ml-3">Изтрий</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

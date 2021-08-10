@@ -1,6 +1,6 @@
 ﻿namespace CosmeticsStore.Services.Product.Models
 {
-    public class ProductServiceModel
+    public class ProductServiceModel : IProductModel
     {
         public int Id { get; init; }
 
@@ -15,6 +15,7 @@
         public decimal Price { get; init; }
 
         public string CategoryName { get; init; }
-    }
 
+        public bool IsPublic { get; init; }
+    }
 }

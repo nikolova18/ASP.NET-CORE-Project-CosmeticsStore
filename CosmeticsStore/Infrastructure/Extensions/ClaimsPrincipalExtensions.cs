@@ -1,4 +1,4 @@
-﻿namespace CosmeticsStore.Infrastructure
+﻿namespace CosmeticsStore.Infrastructure.Extensions
 {
     using System.Security.Claims;
 

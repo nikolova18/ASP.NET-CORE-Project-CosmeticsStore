@@ -10,7 +10,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         var userId = User.Id();
-        var userIsDealer = Dealers.IsDealer(userId); 
+        var userIsDealer = Dealers.IsDealer(userId);
         var userIsAdmin = User.IsAdmin();
 
         @if (userIsDealer && !userIsAdmin)
@@ -23,6 +23,12 @@
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Dealers" asp-action="Become">Стани дистрибутор</a>
+            </li>
+        }
+        else if (userIsAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="All">Управление</a>
             </li>
         }
         <li class="nav-item">

@@ -7,11 +7,12 @@
     public interface IProductService
     {
         ProductQueryServiceModel All(
-            string brand,
-            string searchTerm,
-            ProductSorting sorting,
-            int currentPage,
-            int productsPerPage);
+            string brand = null,
+            string searchTerm = null,
+            ProductSorting sorting=ProductSorting.DateCreated,
+            int currentPage=1,
+            int productsPerPage=int.MaxValue,
+            bool publicOnly = true);
 
         IEnumerable<LatestProductServiceModel> Latest();
 
@@ -35,11 +36,14 @@
             string imageUrl,
             int quantity,
             decimal price,
-            int categoryId);
+            int categoryId,
+            bool isPublic);
 
         IEnumerable<ProductServiceModel> ByUser(string userId);
 
         bool IsByDealer(int productId, int dealerId);
+
+        void ChangeVisility(int productId);
 
         IEnumerable<string> AllBrands();
 

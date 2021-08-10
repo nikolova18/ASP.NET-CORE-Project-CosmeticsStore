@@ -1,6 +1,6 @@
 ﻿namespace CosmeticsStore.Services.Product.Models
 {
-    public class LatestProductServiceModel
+    public class LatestProductServiceModel : IProductModel
     {
         public int Id { get; init; }
 

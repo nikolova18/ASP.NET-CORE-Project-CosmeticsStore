@@ -2,7 +2,7 @@ namespace CosmeticsStore
 {
     using CosmeticsStore.Data;
     using CosmeticsStore.Data.Models;
-    using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Infrastructure.Extensions;
     using CosmeticsStore.Services.Dealer;
     using CosmeticsStore.Services.Product;
     using CosmeticsStore.Services.Statistics;
@@ -18,7 +18,7 @@ namespace CosmeticsStore
     public class Startup
     {
         public Startup(IConfiguration configuration)
-            =>Configuration = configuration;
+            =>this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -79,6 +79,11 @@ namespace CosmeticsStore
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultAreaRoute();
+
+                    endpoints.MapControllerRoute(
+                        name: "Product Details",
+                        pattern: "/Products/Details/{id}/{information}",
+                        defaults: new { controller = "Products", action = "Details" });
 
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();

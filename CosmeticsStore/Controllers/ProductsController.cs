@@ -1,13 +1,14 @@
 ﻿namespace CosmeticsStore.Controllers
 {
     using AutoMapper;
-    using CosmeticsStore.Infrastructure;
+    using CosmeticsStore.Infrastructure.Extensions;
     using CosmeticsStore.Models.Products;
     using CosmeticsStore.Services.Dealer;
     using CosmeticsStore.Services.Product;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using static WebConstants;
     public class ProductsController : Controller
     {
         private readonly IProductService products;
@@ -49,6 +50,17 @@
 
             return View(myProducts);
         }
+        
+        public IActionResult Details(int id, string information)
+        {
+            var product = this.products.Details(id);
+
+            if (information != product.GetInformation())
+            {
+                return BadRequest();
+            }
+            return View(product);
+        }
 
         [Authorize]
         public IActionResult Add()
@@ -87,7 +99,7 @@
                 return View(product);
             }
 
-            this.products.Create(
+            var productId=this.products.Create(
                 product.Brand,
                 product.Name,
                 product.Description,
@@ -97,7 +109,9 @@
                 product.CategoryId,
                 dealerId);
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = "You product was added and is awaiting for approval!";
+
+            return RedirectToAction(nameof(Details), new { id = productId, information = product.GetInformation() });
         }
 
         [Authorize]
@@ -161,9 +175,12 @@
                product.ImageUrl,
                product.Quantity,
                product.Price,
-               product.CategoryId);
+               product.CategoryId,
+               this.User.IsAdmin());
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = $"You product was edited{(this.User.IsAdmin() ? string.Empty : " and is awaiting for approval")}!";
+
+            return RedirectToAction(nameof(Details), new { id, information = product.GetInformation() });
         }
     }
 }

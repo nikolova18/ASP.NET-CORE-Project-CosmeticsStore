@@ -21,19 +21,20 @@
         }
 
         public ProductQueryServiceModel All(
-            string brand,
-            string searchTerm,
-            ProductSorting sorting,
-            int currentPage,
-            int productsPerPage)
+            string brand = null,
+            string searchTerm = null,
+            ProductSorting sorting = ProductSorting.DateCreated,
+            int currentPage=1,
+            int productsPerPage = int.MaxValue,
+            bool publicOnly = true)
         {
-            var productsQuery = this.data.Products.AsQueryable();
+            var productsQuery = this.data.Products
+                .Where(p=>!publicOnly || p.IsPublic);
 
             if (!string.IsNullOrWhiteSpace(brand))
             {
                 productsQuery = productsQuery.Where(p => p.Brand == brand);
             }
-
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -67,6 +68,7 @@
         public IEnumerable<LatestProductServiceModel> Latest()
         => this.data
                 .Products
+                .Where(p => p.IsPublic)
                 .OrderByDescending(c => c.Id)
                 .ProjectTo<LatestProductServiceModel>(this.mapper)
                 .Take(3)
@@ -90,7 +92,8 @@
                 Quantity = quantity,
                 Price = price,
                 CategoryId = categoryId,
-                DealerId = dealerId
+                DealerId = dealerId,
+                IsPublic = false
             };
 
             this.data.Products.Add(productData);
@@ -99,7 +102,16 @@
             return productData.Id;
         }
 
-        public bool Edit(int id, string brand, string name, string description, string imageUrl, int quantity, decimal price, int categoryId)
+        public bool Edit(
+            int id, 
+            string brand, 
+            string name, 
+            string description, 
+            string imageUrl, 
+            int quantity, 
+            decimal price, 
+            int categoryId,
+            bool isPublic)
         {
             var productData= this.data.Products.Find(id);
 
@@ -115,6 +127,7 @@
             productData.Quantity = quantity;
             productData.Price = price;
             productData.CategoryId = categoryId;
+            productData.IsPublic = isPublic;
 
             this.data.SaveChanges();
 
@@ -131,7 +144,16 @@
                 .Products
                 .Any(p => p.Id == productId && p.DealerId == dealerId);
 
-            public IEnumerable<string> AllBrands()
+        public void ChangeVisility(int productId)
+        {
+            var product = this.data.Products.Find(productId);
+
+            product.IsPublic = !product.IsPublic;
+
+            this.data.SaveChanges();
+        }
+
+        public IEnumerable<string> AllBrands()
          => this.data
                 .Products
                 .Select(c => c.Brand)
@@ -142,11 +164,7 @@
         public IEnumerable<ProductCategoryServiceModel> AllCategories()
             => this.data
             .Categories
-            .Select(c => new ProductCategoryServiceModel
-            {
-                Id = c.Id,
-                Name = c.Name
-            })
+            .ProjectTo<ProductCategoryServiceModel>(this.mapper)
             .ToList();
 
         public bool CategoryExists(int categoryId)
@@ -154,18 +172,9 @@
                 .Categories
                 .Any(c => c.Id == categoryId);
 
-        private static IEnumerable<ProductServiceModel> GetProducts(IQueryable<Product> productQuery)
+        private IEnumerable<ProductServiceModel> GetProducts(IQueryable<Product> productQuery)
             => productQuery
-                .Select(p => new ProductServiceModel
-                {
-                    Id = p.Id,
-                    Brand = p.Brand,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                    Quantity = p.Quantity,
-                    Price = p.Price,
-                    CategoryName = p.Category.Name
-                })
+                .ProjectTo<ProductServiceModel>(this.mapper)
                 .ToList();
     }
 }

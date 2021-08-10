@@ -12,7 +12,7 @@
             <p class="lead"> В системата няма продукти в момента.</p>
             <hr class="my-4">
             <p class="lead">
-                <a asp-controller="Products" asp-action="Add" class="btn btn-primary btn-lg" role="button">Добави продукт</a>
+                <a asp-controller="Products" asp-action="Add" class="btn btn-danger btn-lg" role="button">Добави продукт</a>
             </p>
         </div>
     }
@@ -27,7 +27,7 @@
                 <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
                     <img class="d-block w-100" src="@product.ImageUrl" alt="@product.Brand @product.Name">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5><a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Brand  @product.Name @product.Quantity mL</a></h5>
+                        <h5><a class="btn btn-danger" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()">@product.Brand  @product.Name @product.Quantity mL</a></h5>
                     </div>
                 </div>
             }
@@ -47,7 +47,7 @@
 
     <div class="row">
         <div class="col-12 text-center">
-            <button class="btn btn-primary" id="statistics-button">Покажи статистика</button>
+            <button class="btn btn-danger" id="statistics-button">Покажи статистика</button>
         </div>
     </div>
 
