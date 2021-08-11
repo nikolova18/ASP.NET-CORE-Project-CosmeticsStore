@@ -1,1 +1,1 @@
-# ASP.NET-CORE-Project-CosmeticsStore
+Divine Beauty - Store for the best cosmetic brands.
