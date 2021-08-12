@@ -167,7 +167,7 @@
                 return BadRequest();
             }
 
-            this.products.Edit(
+            var edited = this.products.Edit(
                id,
                product.Brand,
                product.Name,
@@ -177,6 +177,11 @@
                product.Price,
                product.CategoryId,
                this.User.IsAdmin());
+
+            if (!edited)
+            {
+                return BadRequest();
+            }
 
             TempData[GlobalMessageKey] = $"You product was edited{(this.User.IsAdmin() ? string.Empty : " and is awaiting for approval")}!";
 

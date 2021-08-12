@@ -8,6 +8,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
+    using static WebConstants.Cache;
+
     public class HomeController : Controller
     {
         private readonly IProductService products;
@@ -23,9 +25,7 @@
 
         public IActionResult Index() 
         {
-            const string latestProductsCacheKey = "LatestProductsCacheKey";
-
-            var latestProducts = this.cache.Get<List<LatestProductServiceModel>>(latestProductsCacheKey);
+            var latestProducts = this.cache.Get<List<LatestProductServiceModel>>(LatestProductsCacheKey);
 
             if (latestProducts == null)
             {
@@ -36,7 +36,7 @@
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
 
-                this.cache.Set(latestProductsCacheKey, latestProducts, cacheOptions);
+                this.cache.Set(LatestProductsCacheKey, latestProducts, cacheOptions);
             }
 
             return View(latestProducts);

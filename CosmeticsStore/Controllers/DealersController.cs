@@ -53,7 +53,7 @@
 
             TempData[GlobalMessageKey] = "Thank you for becomming a dealer!";
 
-            return RedirectToAction("All", "Products");
+            return RedirectToAction(nameof(ProductsController.All), "Products");
         }
     }
 }

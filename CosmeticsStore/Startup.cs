@@ -1,5 +1,6 @@
 namespace CosmeticsStore
 {
+    using CosmeticsStore.Controllers;
     using CosmeticsStore.Data;
     using CosmeticsStore.Data.Models;
     using CosmeticsStore.Infrastructure.Extensions;
@@ -83,7 +84,11 @@ namespace CosmeticsStore
                     endpoints.MapControllerRoute(
                         name: "Product Details",
                         pattern: "/Products/Details/{id}/{information}",
-                        defaults: new { controller = "Products", action = "Details" });
+                        defaults: new
+                        {
+                            controller = typeof(ProductsController).GetControllerName(),
+                            action = nameof(ProductsController.Details)
+                        });
 
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
