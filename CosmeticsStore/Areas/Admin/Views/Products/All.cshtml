@@ -31,14 +31,19 @@
             <td scope="col">@product.Quantity</td>
             <td scope="col">@product.Price</td>
             <td scope="col">@product.CategoryName</td>
-            <td scope="col">@(product.IsPublic ? "Yes" : "No")</td>
+            <td scope="col">@(product.IsPublic ? "Да" : "Не")</td>
             <td scope="col">
-                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()" class="btn btn-primary float-right ml-3">Детайли</a>
-                <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning float-right ml-3">Редакция</a>
-                <a asp-area="Admin" asp-controller="Products" asp-action="ChangeVisibility" asp-route-id="@product.Id" class="btn btn-info float-right ml-3">@(product.IsPublic ? "Скрий" : "Одобри")</a>
-                <a asp-area="" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger float-right ml-3">Изтрий</a>
+                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()" class="btn btn-primary float-right ml-3  mb-1"><i class="fa fa-info-circle"></i> Детайли</a>
+
+                <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning float-right ml-3 mb-1"><i class="fa fa-pencil"></i> Редакция</a>
+                
+                <a asp-area="Admin" asp-controller="Products" asp-action="ChangeVisibility" asp-route-id="@product.Id" class="btn btn-info float-right ml-3  mb-1"><i class="fa fa-eye"></i> @(product.IsPublic ? "Скрий" : "Одобри")</a>
+                
+                <a asp-area="" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger float-right ml-3"><i class="fa fa-trash"></i> Изтрий</a>
             </td>
         </tr>
         }
     </tbody>
 </table>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
