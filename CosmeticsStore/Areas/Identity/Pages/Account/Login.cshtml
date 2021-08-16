@@ -1,7 +1,7 @@
 ﻿@page
 @model LoginModel
 
-@{ ViewData["Title"] = "Log in"; }
+@{ ViewData["Title"] = "Здравей!"; }
 
 <div class="row">
     <div class="col-md-4 offset-md-4">
@@ -11,12 +11,12 @@
             <form id="account" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Input.Email"></label>
+                    <label asp-for="Input.Email">Имейл</label>
                     <input asp-for="Input.Email" class="form-control" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.Password"></label>
+                    <label asp-for="Input.Password">Парола</label>
                     <input asp-for="Input.Password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
@@ -29,14 +29,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-primary">Влез</button>
                 </div>
                 <div class="form-group">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Забрави си паролата?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Не си се регистрирал?</a>
                     </p>
                 </div>
             </form>

@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Регистрация";
 }
 
 <div class="row">
@@ -11,26 +11,26 @@
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
+                <label asp-for="Input.Email">Имейл</label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.FullName"></label>
+                <label asp-for="Input.FullName">Пълно име</label>
                 <input asp-for="Input.FullName" class="form-control" />
                 <span asp-validation-for="Input.FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Password"></label>
+                <label asp-for="Input.Password">Парола</label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
+                <label asp-for="Input.ConfirmPassword">Потвърди парола</label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Регистрирай ме</button>
         </form>
     </div>
 </div>

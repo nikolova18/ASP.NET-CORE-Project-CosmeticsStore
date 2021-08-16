@@ -35,7 +35,7 @@
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember Me?")]
+            [Display(Name = "Помни ме")]
             public bool RememberMe { get; set; }
         }
 
