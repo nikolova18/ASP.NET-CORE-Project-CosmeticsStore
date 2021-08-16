@@ -27,9 +27,23 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Добави продукт</a>
                             </li>
                         }
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Категории
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Грижа за коса</a>
+                            <a class="dropdown-item" href="#">Грижа за лице</a>
+                            <a class="dropdown-item" href="#">Грижа за нокти</a>
+                            <a class="dropdown-item" href="#">Грим</a>
+                            <a class="dropdown-item" href="#">Аромати</a>
+                            <a class="dropdown-item" href="#">Лична хигиена</a>
+                        </div>
+                    </li>
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Всички продукти</a>
                         </li>
+
                     </ul>
 
                     <partial name="_LoginPartial" />
