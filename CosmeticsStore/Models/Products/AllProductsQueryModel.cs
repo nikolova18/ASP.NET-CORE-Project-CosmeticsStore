@@ -6,7 +6,7 @@
 
     public class AllProductsQueryModel
     {
-        public const int ProductPerPage = 3;
+        public const int ProductPerPage = 9;
         public string Brand { get; init; }
 
         [Display(Name ="Търси по текст:")]
