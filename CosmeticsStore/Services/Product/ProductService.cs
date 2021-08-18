@@ -153,6 +153,17 @@
             this.data.SaveChanges();
         }
 
+        public bool Delete(int productId)
+        {
+            var product = this.data.Products.Find(productId);
+
+            this.data.Remove(product);
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public IEnumerable<string> AllBrands()
          => this.data
                 .Products

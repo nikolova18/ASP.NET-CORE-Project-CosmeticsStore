@@ -45,6 +45,8 @@
 
         void ChangeVisility(int productId);
 
+        bool Delete(int productId);
+
         IEnumerable<string> AllBrands();
 
         IEnumerable<ProductCategoryServiceModel> AllCategories();

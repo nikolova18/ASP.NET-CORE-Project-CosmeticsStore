@@ -34,7 +34,7 @@
                   .ToList();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
+                    .SetAbsoluteExpiration(TimeSpan.FromSeconds(15));
 
                 this.cache.Set(LatestProductsCacheKey, latestProducts, cacheOptions);
             }

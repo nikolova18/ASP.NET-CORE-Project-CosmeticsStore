@@ -24,5 +24,12 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        public IActionResult Delete(int id)
+        {
+            this.products.Delete(id);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

@@ -24,6 +24,12 @@
             this.dealers = dealers;
             this.mapper = mapper;
         }
+        public IActionResult Delete(int id)
+        {
+            this.products.Delete(id);
+
+            return RedirectToAction(nameof(All));
+        }
 
         public IActionResult All([FromQuery]AllProductsQueryModel query)
         {
