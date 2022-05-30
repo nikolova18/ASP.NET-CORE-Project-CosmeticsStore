@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head >
     <meta charset="utf-8" />
@@ -6,6 +7,9 @@
     <title>@ViewBag.Title - Борса за най-добрите козметични брандове.</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+
+
 </head>
 <body>
     <header>
@@ -21,13 +25,9 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (!User.IsAdmin())
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Добави продукт</a>
-                            </li>
-                        }
-                    <li class="nav-item dropdown">
+                       
+                        
+                    @*<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Категории
                         </a>
@@ -39,7 +39,7 @@
                             <a class="dropdown-item" href="#">Аромати</a>
                             <a class="dropdown-item" href="#">Лична хигиена</a>
                         </div>
-                    </li>
+                    </li>*@
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Всички продукти</a>
                         </li>

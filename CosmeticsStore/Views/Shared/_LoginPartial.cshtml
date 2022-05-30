@@ -12,7 +12,13 @@
         var userId = User.Id();
         var userIsDealer = Dealers.IsDealer(userId);
         var userIsAdmin = User.IsAdmin();
-
+        
+         @if (User.Identity.IsAuthenticated && !User.IsAdmin() && userIsDealer)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Добави продукт</a>
+            </li>
+        }
         @if (userIsDealer && !userIsAdmin)
         {
             <li class="nav-item">
