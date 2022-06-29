@@ -7,13 +7,11 @@
     <title>@ViewBag.Title - Борса за най-добрите козметични брандове.</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-
-
-
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">         
             <div class="container" style="background-color:rgba(255, 99, 71, 0.5);">
                 <a class="navbar-brand" href="#">
                     <img src="https://i.ibb.co/25sdwS4/favicon.png" alt="..." height="36">
@@ -27,23 +25,23 @@
                     <ul class="navbar-nav flex-grow-1">
                        
                         
-                    @*<li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Категории
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Грижа за коса</a>
-                            <a class="dropdown-item" href="#">Грижа за лице</a>
-                            <a class="dropdown-item" href="#">Грижа за нокти</a>
-                            <a class="dropdown-item" href="#">Грим</a>
-                            <a class="dropdown-item" href="#">Аромати</a>
-                            <a class="dropdown-item" href="#">Лична хигиена</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Грижа за коса</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Грижа за лице</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Грижа за нокти</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Грим</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Аромати</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Лична хигиена</a>
                         </div>
-                    </li>*@
-                        <li>
+                    </li>
+@*                        <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Всички продукти</a>
                         </li>
-
+*@
                     </ul>
 
                     <partial name="_LoginPartial" />
@@ -63,10 +61,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="background-color:rgba(255, 99, 71, 0.5);">
+    <footer class="border-top footer text-muted" style="background-color:rgba(255, 99, 71, 0.5); align-self:auto">
         <div class="container">
             &copy; @DateTime.UtcNow.Year  Devine Beauty, България
         </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
