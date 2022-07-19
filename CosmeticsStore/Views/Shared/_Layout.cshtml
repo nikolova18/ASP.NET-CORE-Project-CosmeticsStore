@@ -22,9 +22,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                       
-                        
+                    <ul class="navbar-nav flex-grow-1"> 
+                    <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">За нас</a>
+                    </li>
+                                       
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Категории
@@ -38,13 +40,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Лична хигиена</a>
                         </div>
                     </li>
-@*                        <li>
+                       @*<li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Всички продукти</a>
-                        </li>
-*@
+                        </li>*@
                     </ul>
 
                     <partial name="_LoginPartial" />
+                    
                 </div>
             </div>
         </nav>
@@ -63,10 +65,10 @@
 
     <footer class="border-top footer text-muted" style="background-color:rgba(255, 99, 71, 0.5); align-self:auto">
         <div class="container">
-            &copy; @DateTime.UtcNow.Year  Devine Beauty, България
+            &copy; @DateTime.UtcNow.Year  Devine Beauty, България        
         </div>
-
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

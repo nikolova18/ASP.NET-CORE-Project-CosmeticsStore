@@ -27,7 +27,7 @@
                 <div class="carousel-item text-center @(i == 0 ? "active" : string.Empty)">
                     <img class="img-fluid rounded" src="@product.ImageUrl" alt="@product.Brand @product.Name">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5><a class="btn btn-danger" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()">@product.Brand  @product.Name @product.Quantity mL</a></h5>
+                        <h5><a class="btn btn-danger" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()">@product.Brand  @product.Name </a></h5>
                     </div>
                 </div>
             }
@@ -45,7 +45,7 @@
 
     <div class="mb-5"></div>
 
-    <div class="row">
+    @*<div class="row">
         <div class="col-12 text-center">
             <button class="btn btn-danger" id="statistics-button">Покажи статистика</button>
         </div>
@@ -56,9 +56,9 @@
             <h2 class="col-md-6 text-center" id="total-products"></h2>
             <h2 class="col-md-6 text-center" id="total-users"></h2>
         </div>
-    </div>
+    </div>*@
 
-    @section Scripts
+@*    @section Scripts
 {
         <script>
             $('#statistics-button').on('click', ev => {
@@ -70,6 +70,6 @@
                 });
             });
         </script>
-    }
+    }*@
 
 

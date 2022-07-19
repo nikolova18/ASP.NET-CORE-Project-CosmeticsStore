@@ -144,6 +144,12 @@
             return View(productForm);
 
         }
+        [Authorize]
+        public IActionResult Cart()
+        {
+            return View();
+
+        }
 
         [HttpPost]
         [Authorize]

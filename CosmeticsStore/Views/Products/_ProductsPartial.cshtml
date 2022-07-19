@@ -7,8 +7,9 @@
             <div class="card mb-3">
                 <img class="card-img-top" src="@product.ImageUrl" alt="@product.Brand - @product.Name">
                 <div class="card-body text-center">
-                    <h5 class="card-title text-center">@product.Brand @product.Name @product.Quantity mL</h5>
-                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()" class="btn btn-primary">Виж повече</a>
+                    <p class="card-title text-center">@product.Brand @product.Name </p>
+                    <h5 class="card-title text-center">@product.Price лв</h5>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()" class="btn btn-danger">Виж повече</a>
                     @if (ViewBag.AllowProductEdit == true || User.IsAdmin())
                     {
                         <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">Редактирай</a>

@@ -41,6 +41,11 @@
 
             return View(latestProducts);
         }
+        public IActionResult About()
+        {
+            return View();
+
+        }
 
         public IActionResult Error() => View();
     }
