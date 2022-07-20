@@ -1,6 +1,5 @@
 # Project Introduction:
 
-Cosmetics Store is ASP.NET Core App for the final project at SoftUni C# Web Module.
 
 # Overview:
 
