@@ -63,9 +63,30 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="background-color:rgba(255, 99, 71, 0.5); align-self:auto">
+    <footer class="border-top footer text-muted" style="background-color: rgba(255, 99, 71, 0.5); align-self: auto ">
         <div class="container">
-            &copy; @DateTime.UtcNow.Year  Devine Beauty, България        
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  ">
+                <div class="container">
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-muted" asp-area="" asp-controller="Home" asp-action="About">Контакти</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-muted" asp-area="" asp-controller="Home" asp-action="About">Доставка и връщане</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-muted" asp-area="" asp-controller="Home" asp-action="About">Рекламация</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-muted" asp-area="" asp-controller="Home" asp-action="About">Общи условия</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            &copy; @DateTime.UtcNow.Year  Divine Beauty, България
+
         </div>
     </footer>
 

@@ -1,0 +1,45 @@
+﻿@{ ViewBag.Title = "Кошница"; }
+
+
+<div>
+    <div>
+        <div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Марка</th>
+                        <th scope="col">Име</th>
+                        <th scope="col">Снимка</th>
+                        <th scope="col">Цена (лв)</th>
+                        <th scope="col">Брой</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var product in Model)
+                        {
+                            <tr>
+                                <td scope="col">@product.Brand</td>
+                                <td scope="col">@product.Name</td>
+                                <td><img src="@product.ImageUrl" class="img-fluid"></td>
+                                <td scope="col">@product.Price</td>
+                                <td scope="col">@</td>
+                                <td scope="col">
+                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-information="@product.GetInformation()" class="btn btn-primary float-right ml-3  mb-1"><i class="fa fa-info-circle"></i> Детайли</a>
+
+                                    <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning float-right ml-3 mb-1"><i class="fa fa-pencil"></i> Редакция</a>
+
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="ChangeVisibility" asp-route-id="@product.Id" class="btn btn-info float-right ml-3  mb-1"><i class="fa fa-eye"></i> @(product.IsPublic ? "Скрий" : "Одобри")</a>
+
+                                    <a asp-area="" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger float-right ml-3"><i class="fa fa-trash"></i> Изтрий</a>
+                                </td>
+                            </tr>
+                        }*@
+                </tbody>
+            </table>
+
+            <a asp-controller="Delivery" asp-action="Buy" asp-route-id="" class="btn btn-danger">Купи</a>
+
+        </div>
+    </div>
+</div>

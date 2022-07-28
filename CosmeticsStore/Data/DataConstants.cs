@@ -31,5 +31,14 @@
             public const int PasswordMinLength = 6;
             public const int PasswordMaxLength = 100;
         }
+
+        public class Delivery
+        {
+            public const int AddressMaxLenght = 200;
+            public const int PhoneMinLength = 6;
+            public const int PhoneMaxLength = 20;
+            public const int RecipientMinLength = 8;
+            public const int RecipientMaxLength = 100;
+        }
     }
 }
