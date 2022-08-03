@@ -1,12 +1,14 @@
 ﻿@model AllProductsQueryModel
 
 @{
-    ViewBag.Title = "Всички продукти";
+    ViewBag.Title = "Продукти";
 }
 
+
 <form method="get">
+
     <div class="row mb-3">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <div class="form-group">
                 <label asp-for="Brand">Марка</label>
                 <select asp-for="Brand" class="form-control">
@@ -18,12 +20,12 @@
                 </select>
             </div>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <label asp-for="SearchTerm"></label>
             <input asp-for="SearchTerm" class="form-control" placeholder="Търси...">
         </div>
 
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <div class="form-group">
                 <label asp-for="Sorting">Сортиране</label>
                 <select asp-for="Sorting" class="form-control">
@@ -34,8 +36,24 @@
                 </select>
             </div>
         </div>
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="CategoryName"></label>
+                <select asp-for="CategoryName" class="form-control">
+                    <option value="" selected>Категории</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Name">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <input class="btn btn-outline-danger  btn-block " type="submit" value="Търси" />
     </div>
+
 </form>
+
+
 
 <partial name="_ProductsPartial" model="@Model.Products" />
 @{

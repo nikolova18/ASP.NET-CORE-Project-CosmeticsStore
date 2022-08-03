@@ -27,7 +27,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">За нас</a>
                     </li>
                                        
-                    <li class="nav-item dropdown">
+                    @*<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Категории
                         </a>
@@ -39,10 +39,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Аромати</a>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Лична хигиена</a>
                         </div>
-                    </li>
-                       @*<li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Всички продукти</a>
-                        </li>*@
+                    </li>*@
+                       <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Продукти</a>
+                        </li>
                     </ul>
 
                     <partial name="_LoginPartial" />
@@ -65,7 +65,7 @@
 
     <footer class="border-top footer text-muted" style="background-color: rgba(255, 99, 71, 0.5); align-self: auto ">
         <div class="container">
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  ">
+            @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  ">
                 <div class="container">
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
@@ -84,7 +84,7 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav>*@
             &copy; @DateTime.UtcNow.Year  Divine Beauty, България
 
         </div>

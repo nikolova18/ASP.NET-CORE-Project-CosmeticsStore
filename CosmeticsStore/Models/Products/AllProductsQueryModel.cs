@@ -20,6 +20,12 @@
 
         public IEnumerable<string> Brands { get; set; }
 
+        [Display(Name = "Категория")]
+        public string CategoryName{ get; init; }
+
+        public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }
+
         public IEnumerable<ProductServiceModel> Products { get; set; }
+        
     }
 }

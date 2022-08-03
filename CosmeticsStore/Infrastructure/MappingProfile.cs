@@ -11,8 +11,14 @@
         {
             this.CreateMap<Category, ProductCategoryServiceModel>();
 
+            this.CreateMap<ProductCategoryServiceModel, AllProductsQueryModel>();
+
             this.CreateMap<Product, LatestProductServiceModel>();
             this.CreateMap<ProductDetailsServiceModel, ProductFormModel>();
+
+            this.CreateMap<Product, AllProductsQueryModel>()
+              .ForMember(c => c.CategoryName, cfg => cfg.MapFrom(c => c.Category.Name));
+
 
             this.CreateMap<Product, ProductServiceModel>()
               .ForMember(c => c.CategoryName, cfg => cfg.MapFrom(c => c.Category.Name));

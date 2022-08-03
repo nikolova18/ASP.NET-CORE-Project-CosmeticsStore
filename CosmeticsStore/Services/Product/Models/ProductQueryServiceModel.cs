@@ -10,6 +10,9 @@
 
         public int TotalProducts { get; init; }
 
+        public IEnumerable<ProductCategoryServiceModel> Categories { get; init; }
+
+
         public IEnumerable<ProductServiceModel> Products { get; init; }
     }
 }

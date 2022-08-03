@@ -5,6 +5,7 @@
     using CosmeticsStore.Models.Products;
     using CosmeticsStore.Services.Dealer;
     using CosmeticsStore.Services.Product;
+    using CosmeticsStore.Services.Product.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -35,14 +36,17 @@
         {
             var queryResult = this.products.All(
                 query.Brand,
+                query.CategoryName,
                 query.SearchTerm,
                 query.Sorting,
-                query.CurrentPage,
+                query.CurrentPage, 
                 AllProductsQueryModel.ProductPerPage);
 
             var productBrands = this.products.AllBrands();
+            var categories = this.products.AllCategories();
 
             query.TotalProducts = queryResult.TotalProducts;
+            query.Categories = categories;
             query.Brands = productBrands;
             query.Products = queryResult.Products ;
 

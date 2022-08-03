@@ -8,6 +8,7 @@
     {
         ProductQueryServiceModel All(
             string brand = null,
+            string categoryname=null,
             string searchTerm = null,
             ProductSorting sorting=ProductSorting.DateCreated,
             int currentPage=1,

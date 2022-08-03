@@ -22,6 +22,7 @@
 
         public ProductQueryServiceModel All(
             string brand = null,
+            string categoryname=null,
             string searchTerm = null,
             ProductSorting sorting = ProductSorting.DateCreated,
             int currentPage=1,
@@ -35,7 +36,10 @@
             {
                 productsQuery = productsQuery.Where(p => p.Brand == brand);
             }
-
+            if (!string.IsNullOrWhiteSpace(categoryname))
+            {
+                productsQuery = productsQuery.Where(c => c.Category.Name == categoryname);
+            }
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 productsQuery = productsQuery.Where(p =>

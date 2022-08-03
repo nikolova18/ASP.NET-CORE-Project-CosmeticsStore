@@ -56,10 +56,11 @@
             <h2 class="col-md-6 text-center" id="total-products"></h2>
             <h2 class="col-md-6 text-center" id="total-users"></h2>
         </div>
-    </div>*@
+    </div>
 
-@*    @section Scripts
+  @section Scripts
 {
+
         <script>
             $('#statistics-button').on('click', ev => {
                 $.get('/api/statistics', (data) => {
