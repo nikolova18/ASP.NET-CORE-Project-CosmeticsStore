@@ -11,8 +11,7 @@
         [MaxLength(FullNameMaxLength)]
         public string FullName { get; set; }
 
-        public int CartId { get; set; }
-        public Cart Cart { get; set; }
-
+        public IEnumerable<Product> Products { get; init; } = new List<Product>();
+        public IEnumerable<Delivery> Deliveries { get; init; } = new List<Delivery>();
     }
 }

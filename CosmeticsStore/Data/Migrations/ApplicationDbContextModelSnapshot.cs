@@ -19,54 +19,6 @@ namespace CosmeticsStore.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CosmeticsStore.Data.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("CosmeticsStore.Data.Models.CartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("CosmeticsStore.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -120,9 +72,6 @@ namespace CosmeticsStore.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -137,10 +86,22 @@ namespace CosmeticsStore.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId")
-                        .IsUnique();
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Deliveries");
                 });
@@ -186,11 +147,16 @@ namespace CosmeticsStore.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("DealerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -201,9 +167,6 @@ namespace CosmeticsStore.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -402,30 +365,6 @@ namespace CosmeticsStore.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CosmeticsStore.Data.Models.Cart", b =>
-                {
-                    b.HasOne("CosmeticsStore.Data.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("CosmeticsStore.Data.Models.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CosmeticsStore.Data.Models.CartItem", b =>
-                {
-                    b.HasOne("CosmeticsStore.Data.Models.Cart", null)
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("CosmeticsStore.Data.Models.Product", null)
-                        .WithOne()
-                        .HasForeignKey("CosmeticsStore.Data.Models.CartItem", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CosmeticsStore.Data.Models.Dealer", b =>
                 {
                     b.HasOne("CosmeticsStore.Data.Models.User", null)
@@ -437,11 +376,16 @@ namespace CosmeticsStore.Data.Migrations
 
             modelBuilder.Entity("CosmeticsStore.Data.Models.Delivery", b =>
                 {
-                    b.HasOne("CosmeticsStore.Data.Models.Cart", null)
+                    b.HasOne("CosmeticsStore.Data.Models.User", null)
                         .WithOne()
-                        .HasForeignKey("CosmeticsStore.Data.Models.Delivery", "CartId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CosmeticsStore.Data.Models.Delivery", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CosmeticsStore.Data.Models.User", "User")
+                        .WithMany("Deliveries")
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CosmeticsStore.Data.Models.Product", b =>
@@ -458,9 +402,16 @@ namespace CosmeticsStore.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("CosmeticsStore.Data.Models.User", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Category");
 
                     b.Navigation("Dealer");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -514,11 +465,6 @@ namespace CosmeticsStore.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CosmeticsStore.Data.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
             modelBuilder.Entity("CosmeticsStore.Data.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -531,7 +477,9 @@ namespace CosmeticsStore.Data.Migrations
 
             modelBuilder.Entity("CosmeticsStore.Data.Models.User", b =>
                 {
-                    b.Navigation("Cart");
+                    b.Navigation("Deliveries");
+
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label asp-for="CategoryName"></label>
                 <select asp-for="CategoryName" class="form-control">
-                    <option value="" selected>Категории</option>
+                    <option value="" selected>Всички</option>
                     @foreach (var category in Model.Categories)
                     {
                         <option value="@category.Name">@category.Name</option>
@@ -48,7 +48,7 @@
                 </select>
             </div>
         </div>
-        <input class="btn btn-outline-danger  btn-block " type="submit" value="Търси" />
+        <input class="btn btn-outline-danger  btn-block " type="submit" value="Филтрирай" />
     </div>
 
 </form>

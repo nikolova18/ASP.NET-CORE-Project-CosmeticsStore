@@ -16,7 +16,7 @@
           @if (!userIsAdmin && !userIsDealer)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="All">Кошница</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Cart">Кошница</a>
             </li>
         }
          @if (User.Identity.IsAuthenticated && !User.IsAdmin() && userIsDealer)
